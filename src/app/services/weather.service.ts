@@ -19,9 +19,9 @@ export class WeatherService{
 
 	}
 
-	getWeather(city, state)
+	getWeather(zmw)
 	{
-			return this.http.get(this.conditionsUrl + '/' + state + '/' + city + '.json')
+			return this.http.get(this.conditionsUrl + '/zmw:' + zmw + '.json')
 				.map(res => res.json()); 
 	}
 

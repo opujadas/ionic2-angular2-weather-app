@@ -8,25 +8,28 @@ import { WeatherService} from '../../app/services/weather.service';
 })
 export class WeatherPage {
 
-  city: String;
-  state : String; 
+  zmw: any;  
   weather : any; 
   searchStr : String;
   results : any; 
 
   constructor(public navCtrl: NavController, private weatherService: WeatherService) {
-  		this.city = 'Boston';
-  		this.state = 'MA';
   }
 
   ngOnInit()
   {
-  	this.weatherService.getWeather(this.city, this.state)
+  	this.getDefaultLocation(); 
+  	this.weatherService.getWeather(this.zmw)
   		.subscribe(weather =>
   			{
   				this.weather = weather.current_observation; 
   			}); 
   } 
+
+  getDefaultLocation()
+  {
+  	this.zmw = '10001.11.99999';
+  }
 
 
   getQuery()
@@ -37,4 +40,16 @@ export class WeatherPage {
   			this.results = res.RESULTS; 
   		}); 
   }
-}
+
+  chooseLocation(location)
+  {
+  	this.results = [];
+
+  	// On va se baser sur le paramètre zmw (sorte de clé primaire qu'on peut passer dans la recherche météo de la ville)  }
+ 	this.weatherService.getWeather(location.zmw)
+  		.subscribe(weather =>
+  			{
+  				this.weather = weather.current_observation; 
+  			});
+  	}
+  }
