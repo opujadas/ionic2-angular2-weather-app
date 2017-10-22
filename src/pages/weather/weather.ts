@@ -26,11 +26,17 @@ export class WeatherPage {
   			}); 
   } 
 
-  getDefaultLocation()
-  {
-  	this.zmw = '10001.11.99999';
-  }
-
+	getDefaultLocation()
+	{
+		if (localStorage.getItem('location') !== undefined)
+		{
+			this.zmw = JSON.parse(localStorage.getItem('location')).zmw;
+		}
+		else
+			{
+				this.zmw = '10001.11.99999';
+			} 
+	}  	
 
   getQuery()
   {
